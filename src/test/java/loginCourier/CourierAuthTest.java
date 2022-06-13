@@ -43,7 +43,7 @@ public class CourierAuthTest {
     }
 
     @Test
-    @DisplayName("Провернка успешной авторизации")
+    @DisplayName("Проверка успешной авторизации")
     public void courierCanAuth() {
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword());
         Response responseLogin = courierClient.login(loginDto);
@@ -52,7 +52,7 @@ public class CourierAuthTest {
     }
 
     @Test
-    @DisplayName("Провернка неуспешной авторизации с неправильным логином")
+    @DisplayName("Проверка неуспешной авторизации с неправильным логином")
     public void wrongLogin() {
         LoginDto loginDto = new LoginDto(courierDto.getLogin() + 1, courierDto.getPassword());
         Response responseLogin = courierClient.login(loginDto);
@@ -60,7 +60,7 @@ public class CourierAuthTest {
     }
 
     @Test
-    @DisplayName("Провернка неуспешной авторизации с неправильным паролем")
+    @DisplayName("Проверка неуспешной авторизации с неправильным паролем")
     public void wrongPass() {
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword() + 1);
         Response responseLogin = courierClient.login(loginDto);
@@ -71,11 +71,7 @@ public class CourierAuthTest {
     @DisplayName("Проверка, что успешный запрос возвращает id")
     public void idNotNull() {
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword());
-        courierId = courierClient.login(loginDto)
-                .then()
-                .statusCode(SC_OK)
-                .extract()
-                .path("id");
+        courierId = courierClient.loginValidID(loginDto, SC_OK);
         assertThat(courierId, notNullValue());
     }
 }

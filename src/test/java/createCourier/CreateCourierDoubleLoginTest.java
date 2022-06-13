@@ -42,10 +42,6 @@ public class CreateCourierDoubleLoginTest {
         Response responseCreate2 = courierClient.create(courierDto2);
         assertEquals(SC_CONFLICT, responseCreate2.statusCode());
         LoginDto loginDto = new LoginDto(courierDto1.getLogin(), courierDto1.getPassword());
-        courierId = courierClient.login(loginDto)
-                .then()
-                .statusCode(SC_OK)
-                .extract()
-                .path("id");
+        courierId = courierClient.loginValidID(loginDto, SC_OK);
     }
 }

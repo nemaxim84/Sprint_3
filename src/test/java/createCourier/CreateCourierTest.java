@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class CreateCourierTest {
     private String firstName = "Max";
     private String password = "qwerty";
-    private String login = "MaxiM777777";
+    private String login = "MaxiM7777877";
     private static CourierClient courierClient;
     private int courierId;
     public static CourierDto courierDto;
@@ -45,25 +45,17 @@ public class CreateCourierTest {
                 .path("ok");
         assertTrue(isCreated);
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword());
-        courierId = courierClient.login(loginDto)
-                .then()
-                .statusCode(SC_OK)
-                .extract()
-                .path("id");
+        courierId = courierClient.loginValidID(loginDto, SC_OK);
     }
 
     @Test
-    @DisplayName("Нельзя создать даух одинаоквых курьеров")
+    @DisplayName("Нельзя создать даух одинаковых курьеров")
     public void twoIdenticalCourierError() {
         Response responseCreate1 = courierClient.create(courierDto);
         Response responseCreate2 = courierClient.create(courierDto);
         assertEquals(SC_CONFLICT, responseCreate2.statusCode());
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword());
-        courierId = courierClient.login(loginDto)
-                .then()
-                .statusCode(SC_OK)
-                .extract()
-                .path("id");
+        courierId = courierClient.loginValidID(loginDto, SC_OK);
     }
 
     @Test
@@ -72,11 +64,7 @@ public class CreateCourierTest {
         Response responseCreate = courierClient.create(courierDto);
         assertEquals(SC_CREATED, responseCreate.statusCode());
         LoginDto loginDto = new LoginDto(courierDto.getLogin(), courierDto.getPassword());
-        courierId = courierClient.login(loginDto)
-                .then()
-                .statusCode(SC_OK)
-                .extract()
-                .path("id");
+        courierId = courierClient.loginValidID(loginDto, SC_OK);
     }
 
 }

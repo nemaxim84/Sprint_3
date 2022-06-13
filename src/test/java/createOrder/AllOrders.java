@@ -27,6 +27,5 @@ public class AllOrders {
         Response responseCreate = orderClient.gettingList();
         assertEquals(SC_OK, responseCreate.statusCode());
         assertThat(responseCreate.path("orders"), notNullValue());
-        //System.out.println((ArrayList) responseCreate.path("orders"));
     }
 }

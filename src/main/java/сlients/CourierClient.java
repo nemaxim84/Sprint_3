@@ -4,6 +4,8 @@ import dto.CourierDto;
 import dto.LoginDto;
 import io.restassured.response.Response;
 
+import static org.apache.http.HttpStatus.SC_OK;
+
 public class CourierClient {
     private final RestAssuredClient restAssuredClient;
 
@@ -13,6 +15,12 @@ public class CourierClient {
 
     public Response login(LoginDto loginDto) {
         return restAssuredClient.post("courier/login", loginDto);
+    }
+    public int loginValidID (LoginDto loginDto, int exceptedStatusCode){
+        return restAssuredClient.post("courier/login", loginDto).then()
+                .statusCode(exceptedStatusCode)
+                .extract()
+                .path("id");
     }
 
     public Response create(CourierDto courierDto) {

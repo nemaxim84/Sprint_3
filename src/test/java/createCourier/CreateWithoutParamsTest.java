@@ -35,7 +35,7 @@ public class CreateWithoutParamsTest {
         Response responseCreate = courierClient.create(courierDto);
         assertEquals(SC_BAD_REQUEST, responseCreate.statusCode());
         System.out.println((String) responseCreate.path("message"));
-        assertEquals((String) responseCreate.path("message"), expectedMessage);
+        assertEquals(responseCreate.path("message"), expectedMessage);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class CreateWithoutParamsTest {
         courierDto.setLogin(login);
         Response responseCreate = courierClient.create(courierDto);
         assertEquals(SC_BAD_REQUEST, responseCreate.statusCode());
-        assertEquals((String) responseCreate.path("message"), expectedMessage);
+        assertEquals(responseCreate.path("message"), expectedMessage);
     }
     @Test
     @DisplayName("Создание курьера без имени")
@@ -56,6 +56,6 @@ public class CreateWithoutParamsTest {
         courierDto.setPassword(password);
         Response responseCreate = courierClient.create(courierDto);
         assertEquals(SC_BAD_REQUEST, responseCreate.statusCode());
-        assertEquals((String) responseCreate.path("message"), expectedMessage);
+        assertEquals(responseCreate.path("message"), expectedMessage);
     }
 }

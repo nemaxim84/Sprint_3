@@ -14,7 +14,7 @@ import static org.apache.http.HttpStatus.SC_BAD_REQUEST;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.junit.Assert.assertEquals;
 
-public class CreateWithoutParamsTest {
+public class LoginWithoutParamsTest {
     private String firstName = "Max";
     private String password = "qwerty";
     private String login = "MaxiM139";
@@ -42,16 +42,16 @@ public class CreateWithoutParamsTest {
     }
 
     @Test
-    @DisplayName("Создание курьера без пароля")
-    public void CreateWithoutPass() {
+    @DisplayName("Попытка залогиниться без пароля")
+    public void LoginWithoutPass() {
         LoginDto loginDto = new LoginDto();
         loginDto.setLogin(courierDto.getLogin());
         Response responseLogin = courierClient.login(loginDto);
         assertEquals(SC_BAD_REQUEST, responseLogin.statusCode());
     }
     @Test
-    @DisplayName("Создание курьера без логина")
-    public void CreateWithoutLogin() {
+    @DisplayName("Попытка залогиниться без логина")
+    public void LoginWithoutLogin() {
         LoginDto loginDto = new LoginDto();
         loginDto.setPassword(courierDto.getPassword());
         Response responseLogin = courierClient.login(loginDto);
